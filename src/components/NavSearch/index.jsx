@@ -9,8 +9,9 @@ export default function NavSearch(params) {
             <button className="w-8 h-8 rounded-full bg-gray-1">
                 <img className="w-5 mx-auto " src="/assets/location.svg" alt="" />
             </button>
-        </nav>
             {/* <ModalSearch/> */}
+        </nav>
+            
         </>
     )
 }
