@@ -4,7 +4,7 @@ import ItemWeatherForecast from "./ItemWeatherForecast";
 export default function WeatherForecast() {
     return (
         <section className="w-full py-5 h-auto px-6 lg:mx-auto lg:max-w-4xl lg:w-auto">
-            <div className="w-full flex justify-end">
+            <div className="w-full hidden lg:flex justify-end">
                 <BtnSetScaleTemp>℃</BtnSetScaleTemp>
                 <BtnSetScaleTemp>℉</BtnSetScaleTemp>
             </div>
