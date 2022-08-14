@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-
-const WEATHER_API = 'https://api.openweathermap.org/data/2.5/weather?appid=c07467bd8aeb3a9268f86996ec40c2c6'
+const API_KEY = 'c07467bd8aeb3a9268f86996ec40c2c6'
+const WEATHER_API = 'https://api.openweathermap.org/data/2.5'
 
 const initialState = {
     currentWeather: null,
@@ -10,10 +10,17 @@ const initialState = {
 }
 
 export const fetchCurrentWeather = createAsyncThunk('weather/fetchCurrentWeather', async (cord)=>{
-    console.log(cord.lat);
-    const response = await axios.get(`${WEATHER_API}&lat=${cord.lat}&lon=${cord.lon}`)
-    console.log(response.data);
+   // console.log(cord.lat);
+    const response = await axios.get(`${WEATHER_API}/weather?appid=${API_KEY}&lat=${cord.latitude}&lon=${cord.longitude}`)
+    //console.log(response.data);
     return response.data
+})
+
+export const fetchForecast = createAsyncThunk('weather/fetchForecast', async (cord)=>{
+    console.log(cord.lat);
+    const response = await axios.get(`${WEATHER_API}/forecast?appid=${API_KEY}&lat=${cord.lat}&lon=${cord.lon}`)
+    console.log(response.data);
+    return response.data    
 })
 
 const WeatherSlice = createSlice({
@@ -40,6 +47,10 @@ const WeatherSlice = createSlice({
             state.status = 'failed'
             console.log(action.error.message);
         })
+        // .addCase(fetchForecast.pending, (state, action)=>{
+        //     state.status = "loading"
+        // })
+        // .addCase()
     }
 })
 
