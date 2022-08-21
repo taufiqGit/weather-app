@@ -6,12 +6,12 @@ import cord from "../../Util/DefaultCord";
 export default function NavSearch(params) {
     const dispatch = useDispatch()
 
-    const success =(position)=>{
+    const geolocSuccess =(position)=>{
         dispatch(fetchCurrentWeather(position.coords))
         dispatch(fetchForecast(position.coords))
     }
 
-    const error = (err)=>{
+    const geolocError = (err)=>{
         toast.warn('Please allow your location !')
         dispatch(fetchCurrentWeather(cord))
         dispatch(fetchForecast(cord))
@@ -19,7 +19,8 @@ export default function NavSearch(params) {
     }
 
     const handleRefreshCurrentLocation =()=>{
-        navigator.geolocation.getCurrentPosition(success, error);
+        console.log('jaja');
+        navigator.geolocation.getCurrentPosition(geolocSuccess, geolocError);
     }
 
     return (

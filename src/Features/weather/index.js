@@ -27,6 +27,7 @@ const initialState = {
 
 export const fetchCurrentWeather = createAsyncThunk('weather/fetchCurrentWeather', async (cord)=>{
     const response = await axios.get(`${WEATHER_API}/weather?appid=${API_KEY}&lat=${cord.latitude}&lon=${cord.longitude}`)
+    
     return response.data
 })
 
@@ -36,7 +37,7 @@ export const fetchForecast = createAsyncThunk('weather/fetchForecast', async (co
 })
 
 export const fetchSearch = createAsyncThunk('weather/fetchSearch', async (payload)=>{
-     const response = await axios.get(`${GEOCODE_API}?appid=${API_KEY}&q=${payload.q}&limit=8`)
+     const response = await axios.get(`${GEOCODE_API}?appid=${API_KEY}&q=${payload.q}&limit=8`)     
      return response.data    
  })
 
@@ -82,6 +83,7 @@ const WeatherSlice = createSlice({
         })
         .addCase(fetchCurrentWeather.fulfilled, (state, action)=>{
             state.status = 'succeeded'
+            state.currentUnit = 'celcius'
             const convertKelvinToCelcius = (temp)=> temp - 273.15
             const value = {
                 temp: convertKelvinToCelcius(action.payload.main.temp),
@@ -104,6 +106,7 @@ const WeatherSlice = createSlice({
         })
         .addCase(fetchForecast.fulfilled, (state, action)=>{
             state.status = "succeeded"
+            state.currentUnit = 'celcius'
             let listForecast = action.payload.list
             let listDate = []
             let getAllDt = listForecast.map(dt =>  dt.dt_txt.split(' ')[0])
@@ -150,9 +153,10 @@ const WeatherSlice = createSlice({
                     icon: val.weather.icon
                 }
             }).filter(val => {
-                let time = new Date().getTime()
-             console.log(val, time + 50000000, 'jkjk');
-                return val.time > time + 50000000
+                let time = new Date()
+                time.setHours(12)
+            // console.log(val.time, time.getTime(), 'jkjk');
+                return val.time > time 
             })
 
             state.listForecast = finalListForecast
@@ -174,8 +178,6 @@ const WeatherSlice = createSlice({
             } else {
                 state.listSearchRegion[0] = 'Not Found !!'
             }
-            
-            console.log(action.payload);
         })
         .addCase(fetchSearch.rejected, (state, action)=>{
             state.statuSearch = 'failed'
