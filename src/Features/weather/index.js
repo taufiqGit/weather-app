@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
 import axios from "axios";
 const API_KEY = 'c07467bd8aeb3a9268f86996ec40c2c6'
 const WEATHER_API = 'https://api.openweathermap.org/data/2.5'
-const GEOCODE_API = 'http://api.openweathermap.org/geo/1.0/direct'
+const GEOCODE_API = 'https://api.openweathermap.org/geo/1.0/direct'
 
 const currentWeather = {
     temp: 0,
