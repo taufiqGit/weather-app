@@ -1,4 +1,3 @@
-
 const WindDirection =()=>(
             <div className="flex items-center mt-6">
                 <div className="w-5 h-5 flex justify-center items-center rounded-full bg-gray-1">
@@ -24,7 +23,7 @@ const HumidityPercent =({ percent })=>(
 
 export default function ItemHighlightToday({ type, value, unit, windDirection, humidityPercent}) {
     return (
-        <div className="w-full my-4 lg:my-0 flex flex-col items-center py-4 bg-black-1">
+        <div className="w-full my-4 lg:my-0 h-auto min-h-[150px] flex flex-col items-center py-5 bg-black-1">
             <p className="text-white ">{type}</p>
             <h3 className="mt-3 text-white text-6xl font-semibold">{value}<span className="text-xl ml-2">{unit}</span></h3>
             {windDirection && <WindDirection/>}
